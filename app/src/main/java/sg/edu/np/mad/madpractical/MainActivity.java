@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         db= new MyDbHandler(MainActivity.this,null,null,1);
-        db.updateUser(myUser);
 
 
 
@@ -88,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     myButton.setText("Follow");
                     Log.v(TITLE, "Follow");
                     Toast.makeText(MainActivity.this,"Unfollowed",Toast.LENGTH_SHORT).show();
+                    db.updateUser(myUser);
                 }
                 else
                 {
@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     myButton.setText("Unfollow");
                     Log.v(TITLE, "Unfollow");
                     Toast.makeText(MainActivity.this,"Followed",Toast.LENGTH_SHORT).show();
+                    db.updateUser(myUser);
 
                 }
 
