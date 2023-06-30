@@ -32,7 +32,7 @@ public class ListActivity extends AppCompatActivity {
     ImageView imageView;
     AlertDialog.Builder builder;
     TextView txt;
-    MyDbHandler db= new MyDbHandler(this,null,null,1);
+    MyDbHandler db= new MyDbHandler(this,"UserDb.db",null,1);
 
 
     @Override
@@ -40,6 +40,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         Log.v(title,"On create");
+
 
 
 
@@ -125,7 +126,6 @@ public class ListActivity extends AppCompatActivity {
         for (i=0;i<=20;i++)
         {
             User user = new User("Name"+generateNO(),"Description"+generateNO(),generateNO(),random.nextBoolean());
-            usersList.add(user);
             db.addUsers(user);
 
         }
@@ -135,7 +135,7 @@ public class ListActivity extends AppCompatActivity {
     }
     public void readData()
     {
-        usersList1=db.getUSERS();
+        usersList1=db.getUser();
 
 
     }

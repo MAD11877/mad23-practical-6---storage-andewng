@@ -18,11 +18,11 @@ public class MyDbHandler extends SQLiteOpenHelper {
     ArrayList<User> userList = new ArrayList<>();
     public static final String DATABASE_NAME = "UserDb.db";
 
-    public String TABLE_USERS= "user";
-    public String COLUMN_USERNAME = "Username";
-    public String COLUMN_DESCRIPTION = "Description";
-    public String COLUMN_ID = "Id";
-    public String COLUMN_FOLLOWED = "Followed";
+    public String TABLE_USERS= "users";
+    public String COLUMN_USERNAME = "name";
+    public String COLUMN_DESCRIPTION = "description";
+    public String COLUMN_ID = "id";
+    public String COLUMN_FOLLOWED = "followed";
 
 
     public MyDbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -31,7 +31,7 @@ public class MyDbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_ACCOUNT_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + COLUMN_USERNAME + " TEXT, " + COLUMN_DESCRIPTION + " TEXT," + COLUMN_ID + " TEXT," + COLUMN_FOLLOWED + " TEXT " + ")";
+        String CREATE_ACCOUNT_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + COLUMN_USERNAME + " TEXT, " + COLUMN_DESCRIPTION + " TEXT," + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_FOLLOWED + " INTEGER) ";
         Log.i(title, CREATE_ACCOUNT_TABLE);
 
         db.execSQL(CREATE_ACCOUNT_TABLE);
@@ -58,10 +58,11 @@ public class MyDbHandler extends SQLiteOpenHelper {
 
     }
 
-    /*public ArrayList<User> getUser(){
+    public ArrayList<User> getUser(){
           ArrayList<User>userList= new ArrayList<>();
           SQLiteDatabase db=getReadableDatabase();
-        Cursor cursor =db.rawQuery("SELECT * FROM ACCOUNTS",null);
+          String query = "SELECT * FROM " + TABLE_USERS;
+          Cursor cursor =db.rawQuery(query,null);
 
          if(cursor.moveToFirst())
          {
@@ -80,10 +81,10 @@ public class MyDbHandler extends SQLiteOpenHelper {
              }
          }
           cursor.close();
-          db.close()
+          db.close();
           return userList;
-    }*/
-    public ArrayList<User> getUSERS() {
+    }
+    /*public ArrayList<User> getUSERS() {
         ArrayList<User> userList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_USERS, null);
@@ -102,7 +103,7 @@ public class MyDbHandler extends SQLiteOpenHelper {
         return userList;
 
 
-    }
+    }*/
 
 
     public boolean updateUser(User user) {
