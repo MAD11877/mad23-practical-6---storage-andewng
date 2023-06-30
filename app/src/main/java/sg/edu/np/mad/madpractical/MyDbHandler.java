@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class MyDbHandler extends SQLiteOpenHelper {
     String title = "MyDbHandler";
-    public static int DATA_VERSION = 1;
+    public static int DATA_VERSION = 2;
     ArrayList<User> userList = new ArrayList<>();
     public static final String DATABASE_NAME = "UserDb.db";
 
@@ -31,9 +31,13 @@ public class MyDbHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_ACCOUNT_TABLE = "CREATE TABLE " + TABLE_USERS + "(" + COLUMN_USERNAME + " TEXT, " + COLUMN_DESCRIPTION + " TEXT," + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_FOLLOWED + " INTEGER) ";
+        String CREATE_ACCOUNT_TABLE =  "CREATE TABLE " +
+                TABLE_USERS + "(" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_USERNAME + " TEXT, " +
+                COLUMN_DESCRIPTION + " TEXT, " +
+                COLUMN_FOLLOWED + " INTEGER)";
         Log.i(title, CREATE_ACCOUNT_TABLE);
-
         db.execSQL(CREATE_ACCOUNT_TABLE);
     }
 
@@ -58,7 +62,7 @@ public class MyDbHandler extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<User> getUser(){
+    /*public ArrayList<User> getUser(){
           ArrayList<User>userList= new ArrayList<>();
           SQLiteDatabase db=getReadableDatabase();
           String query = "SELECT * FROM " + TABLE_USERS;
@@ -83,8 +87,8 @@ public class MyDbHandler extends SQLiteOpenHelper {
           cursor.close();
           db.close();
           return userList;
-    }
-    /*public ArrayList<User> getUSERS() {
+    }*/
+    public ArrayList<User> getUSERS() {
         ArrayList<User> userList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_USERS, null);
@@ -103,18 +107,18 @@ public class MyDbHandler extends SQLiteOpenHelper {
         return userList;
 
 
-    }*/
+    }
 
 
     public boolean updateUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("Username", user.getName());
-        values.put("Description",user.getDescription());
-        values.put("Id",user.getId());
+        values.put("name", user.getName());
+        values.put("description",user.getDescription());
+        values.put("id",user.getId());
         values.put("followed",user.getFollowed());
 
-        int rows =db.update("users",values,"Username=?",new String[]{String.valueOf(user.getName())});
+        int rows =db.update("users",values,"name=?",new String[]{String.valueOf(user.getName())});
         if(rows==1)
         {
             return false;

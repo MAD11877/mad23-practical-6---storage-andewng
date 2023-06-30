@@ -135,7 +135,7 @@ public class ListActivity extends AppCompatActivity {
     }
     public void readData()
     {
-        usersList1=db.getUser();
+        usersList1=db.getUSERS();
 
 
     }
